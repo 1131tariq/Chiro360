@@ -1,0 +1,22 @@
+<%- include("partials/header.ejs") %>
+<%- include("partials/navbar.ejs") %>
+
+<body>
+<% if (content === 'scheduling') { %>
+    <%- include("partials/scheduling.ejs", { events: events }) %>
+<% } else if (content === 'patients') { %>
+    <%- include("partials/patients.ejs") %>
+<% } else if (content === 'soap') { %>
+    <%- include("partials/soap.ejs") %>
+<% } else if (content === 'billing') { %>
+    <%- include("partials/billing.ejs") %>
+<% } else if (content === 'reports') { %>
+    <%- include("partials/reports.ejs") %>
+<% } else if (content === 'marketing') { %>
+    <%- include("partials/marketing.ejs") %>
+<% } else if (content === 'inventory') { %>
+    <%- include("partials/inventory.ejs") %>
+<% } %>
+</body>
+
+<%- include("partials/footer.ejs") %>

@@ -1,0 +1,86 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/dashboard"><img src="/images/spine-svgrepo-com.svg" height="30"> Chiro360</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a id="nav-scheduling" class="nav-link" href="/dashboard/scheduling">Scheduling</a>
+          </li>
+          <li class="nav-item">
+            <a id="nav-patients" class="nav-link" href="/dashboard/patients">Patients</a>
+          </li>
+          <li class="nav-item">
+            <a id="nav-soap" class="nav-link" href="/dashboard/soap">SOAP</a>
+          </li>
+          <li class="nav-item">
+            <a id="nav-billing" class="nav-link" href="/dashboard/billing">Billing & Insurance</a>
+          </li>
+          <li class="nav-item">
+            <a id="nav-reports" class="nav-link" href="/dashboard/reports">Reports & Analytics</a>
+          </li>
+          <li class="nav-item">
+            <a id="nav-marketing" class="nav-link" href="/dashboard/marketing">Marketing</a>
+          </li>
+          <li class="nav-item">
+            <a id="nav-inventory" class="nav-link" href="/dashboard/inventory">Inventory Management</a>
+          </li>
+        </ul>
+
+        <div class="dropdown text-end">
+          <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end text-small" style="">
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/logout">Log out</a></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+</nav>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Get all nav links
+    const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+
+    // Function to set the active link
+    function setActiveLink() {
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        link.removeAttribute('aria-current');
+      });
+
+      // Get the current path
+      const path = window.location.pathname;
+
+      // Find the link that matches the current path
+      const activeLink = Array.from(navLinks).find(link => link.getAttribute('href') === path);
+      if (activeLink) {
+        activeLink.classList.add('active');
+        activeLink.setAttribute('aria-current', 'page');
+      }
+    }
+
+    // Set the active link on page load
+    setActiveLink();
+
+    // Set the active link on click
+    navLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          link.removeAttribute('aria-current');
+        });
+        this.classList.add('active');
+        this.setAttribute('aria-current', 'page');
+      });
+    });
+  });
+</script>

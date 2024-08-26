@@ -1,0 +1,77 @@
+<div id='calendar'></div>
+
+<div class="modal fade" id="eventModal" tabindex="-1" aria-labelledby="eventModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="eventModalLabel">Add New Event</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="eventForm" method="POST" action="/add-event">
+                        <div class="mb-3">
+                            <label for="eventTitle" class="form-label">Event Title</label>
+                            <input type="text" class="form-control" id="eventTitle" name="title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventStart" class="form-label">Start Date and Time</label>
+                            <input type="datetime-local" class="form-control" id="eventStart" name="start" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventEnd" class="form-label">End Date and Time</label>
+                            <input type="datetime-local" class="form-control" id="eventEnd" name="end" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="eventDescription" class="form-label">Description</label>
+                            <textarea class="form-control" id="eventDescription" name="description" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Add Event</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today addEventButton',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridDay,yearGrid' // Ensure the view names are correct
+                },
+                views: {
+                    dayGridMonth: { buttonText: 'Month' },
+                    timeGridDay: { buttonText: 'Day' },
+                    yearGrid: {
+                        type: 'listYear',
+                        duration: { years: 1 },
+                        buttonText: 'Year',
+                        visibleRange: {
+                            start: '2024-01-01',
+                            end: '2024-12-31'
+                        },
+                        dateIncrement: { years: 1 }
+                    }
+                },
+                customButtons: {
+                    addEventButton: {
+                        text: 'Add Event',
+                        click: function() {
+                            var eventModal = new bootstrap.Modal(document.getElementById('eventModal'));
+                            eventModal.show();
+                        }
+                    }
+                },
+                events: <%- JSON.stringify(events) %>,
+                eventDidMount: function(info) {
+                    $(info.el).qtip({
+                        content: info.event.extendedProps.description
+                    });
+                }
+            });
+            calendar.render();
+        });
+    </script>
