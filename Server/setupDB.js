@@ -1,5 +1,8 @@
 import pg from "pg";
 import dotenv from "dotenv";
+import fs from "fs";
+import path from "path";
+import csvParser from "csv-parser";
 
 dotenv.config();
 
@@ -159,50 +162,171 @@ ALTER TABLE IF EXISTS public.inventory
 COMMIT;
 `;
 
-const insertDummyData = `
--- Insert Dummy Data into Users Table
-INSERT INTO public.users (username, firstname, lastname, email, password, contactinfo, user_kind, permission_level, branch_id, title, permissions)
-VALUES
-('dummyuser1', 'John', 'Doe', 'john.doe@example.com', '$2b$10$dummyHashedPassword', '{"phone": "123-456-7890", "address": "123 Main St"}', 'admin', 'Admin', 1, 'Manager', ARRAY['read', 'write']),
-('dummyuser2', 'Jane', 'Doe', 'jane.doe@example.com', '$2b$10$dummyHashedPassword', '{"phone": "098-765-4321", "address": "456 Maple St"}', 'client', 'Client', 2, 'Client', ARRAY['read']);
+const csvFolder = "./dummyData";
 
--- Insert Dummy Data into Branches Table
-INSERT INTO public.branches (branch_name, address, phone, email, description)
-VALUES
-('Main Branch', '{"street": "123 Main St", "city": "Somewhere", "state": "CA", "zip": "12345"}', '555-1234', 'info@mainbranch.com', 'Primary location'),
-('Secondary Branch', '{"street": "456 Maple St", "city": "Anywhere", "state": "CA", "zip": "67890"}', '555-5678', 'info@secondarybranch.com', 'Secondary location');
+const readCSV = (fileName) => {
+  return new Promise((resolve, reject) => {
+    const results = [];
+    fs.createReadStream(path.join(csvFolder, fileName))
+      .pipe(csvParser())
+      .on("data", (data) => results.push(data))
+      .on("end", () => resolve(results))
+      .on("error", (error) => reject(error));
+  });
+};
 
--- Insert Dummy Data into Patients Table
-INSERT INTO public.patients (firstname, lastname, dateofbirth, gender, contactinfo, assigned_doctor, branch_id)
-VALUES
-('Alice', 'Smith', '1980-01-01', 'Female', '{"phone": "555-1111", "address": "789 Oak St"}', 1, 1),
-('Bob', 'Johnson', '1990-02-02', 'Male', '{"phone": "555-2222", "address": "101 Pine St"}', 2, 2);
+const insertDataFromCSV = async () => {
+  try {
+    const users = await readCSV("users.csv");
+    const branches = await readCSV("branches.csv");
+    const appointments = await readCSV("appointments.csv");
+    const patients = await readCSV("patients.csv");
+    const soaps = await readCSV("soaps.csv");
+    const inventory = await readCSV("inventory.csv");
+    const cptCodes = await readCSV("cpt_codes.csv");
 
--- Insert Dummy Data into Appointments Table
-INSERT INTO public.appointments (patient_id, provider_id, appointment_date, appointment_time, appointment_type, branch_id)
-VALUES
-(1, 1, '2024-08-15', '09:00:00', 'Consultation', 1),
-(2, 2, '2024-08-16', '10:00:00', 'Follow-up', 2);
+    // Insert data into Users table
+    for (const user of users) {
+      await db.query(
+        `INSERT INTO public.users (id, email, password, username, firstname, lastname, contactinfo, branch_id, user_kind, permission_level, title, permissions) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
+        [
+          parseInt(user.id), // Ensure id is an integer
+          user.email, // Email as a string
+          user.password, // Password as a string
+          user.username, // Username as a string
+          user.firstname, // Firstname as a string
+          user.lastname, // Lastname as a string
+          JSON.parse(user.contactinfo.replace(/'/g, '"')), // Convert contactinfo JSON string to object
+          parseInt(user.branch_id), // Ensure branch_id is an integer
+          user.user_kind, // User kind as a string
+          user.permission_level, // Permission level as a string
+          user.title, // Title as a string
+          user.permissions.replace(/{|}/g, "").split(","), // Parse permissions array
+        ]
+      );
+    }
 
--- Insert Dummy Data into SOAPS Table
-INSERT INTO public.soaps (patient_id, appointment_id, provider_id, subjective, objective, assessment, plan, created_by, updated_by, status)
-VALUES
-(1, 1, 1, 'Patient reports a headache.', 'No abnormal findings.', 'Tension headache.', 'Advised rest and hydration.', 1, 1, 'Completed'),
-(2, 2, 2, 'Patient reports back pain.', 'Minor discomfort observed.', 'Possible strain.', 'Recommended physical therapy.', 2, 2, 'Pending');
+    // Insert data into Branches table
+    for (const branch of branches) {
+      await db.query(
+        `INSERT INTO public.branches (branch_id, branch_name, address, phone, email, description) VALUES ($1, $2, $3, $4, $5, $6)`,
+        [
+          parseInt(branch.branch_id), // Ensure branch_id is an integer
+          branch.branch_name, // Branch name as a string
+          JSON.parse(branch.address.replace(/'/g, '"')), // Convert address JSON string to object
+          branch.phone, // Phone as a string
+          branch.email, // Email as a string
+          branch.description, // Description as a string
+        ]
+      );
+    }
 
--- Insert Dummy Data into Inventory Table
-INSERT INTO public.inventory (branch_id, item_name, quantity, unit_price, updated_by)
-VALUES
-(1, 'Office Supplies', 100, 12.50, 1),
-(2, 'Medical Equipment', 20, 150.00, 2);
+    //Insert data into appointments table
+    for (const appointment of appointments) {
+      await db.query(
+        `INSERT INTO public.appointments (
+              appointment_id, patient_id, provider_id, appointment_date, appointment_time, appointment_type, status, created_at, branch_id, appointment_end_time, amount, invoice_status, case_type
+            ) VALUES (
+              $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13
+            )`,
+        [
+          parseInt(appointment.appointment_id), // Ensure it's an integer
+          parseInt(appointment.patient_id), // Ensure it's an integer
+          parseInt(appointment.provider_id), // Ensure it's an integer
+          appointment.appointment_date, // Date string, e.g., '2024-08-05'
+          appointment.appointment_time, // Time string, e.g., '10:00:00'
+          appointment.appointment_type, // String, e.g., 'Adjustment'
+          appointment.status, // String, e.g., 'Completed'
+          new Date(appointment.created_at), // Date string, e.g., '2024-08-01 00:00:00'
+          parseInt(appointment.branch_id), // Ensure it's an integer
+          appointment.appointment_end_time, // Time string, e.g., '11:00:00'
+          parseFloat(appointment.amount), // Convert to a float for monetary values
+          appointment.invoice_status, // String, e.g., 'Paid'
+          appointment.case_type, // String, e.g., 'Cash'
+        ]
+      );
+    }
 
--- Insert Dummy Data into CPT Codes Table (if required)
-INSERT INTO public.cpt_codes (code, description)
-VALUES
-('99213', 'Established patient office or other outpatient visit, typically 15 minutes'),
-('99214', 'Established patient office or other outpatient visit, typically 25 minutes');
+    //Insert data into Patients table
+    for (const patient of patients) {
+      await db.query(
+        `INSERT INTO public.patients (
+              patientid, firstname, lastname, dateofbirth, gender, contactinfo, assigned_doctor, branch_id
+            ) VALUES (
+              $1, $2, $3, $4, $5, $6, $7, $8
+            )`,
+        [
+          parseInt(patient.patientid), // Ensure it's an integer
+          patient.firstname, // String, e.g., 'Michael'
+          patient.lastname, // String, e.g., 'Brown'
+          patient.dateofbirth, // Date string, e.g., '1975-04-03'
+          patient.gender, // String, e.g., 'male'
+          JSON.parse(patient.contactinfo.replace(/'/g, '"')), // Parse JSON contactinfo correctly
+          parseInt(patient.assigned_doctor), // Ensure it's an integer
+          parseInt(patient.branch_id), // Ensure it's an integer
+        ]
+      );
+    }
 
-`;
+    //Insert data into Soaps table
+    for (const soap of soaps) {
+      await db.query(
+        `INSERT INTO public.soaps (
+              id, patient_id, appointment_id, provider_id, subjective, objective, assessment, plan, created_by, updated_by, status
+            ) VALUES (
+              $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
+            )`,
+        [
+          parseInt(soap.id), // Ensure it's an integer
+          parseInt(soap.patient_id), // Ensure it's an integer
+          parseInt(soap.appointment_id), // Ensure it's an integer
+          parseInt(soap.provider_id), // Ensure it's an integer
+          soap.subjective, // String, e.g., 'John presented to the office...'
+          soap.objective, // String, e.g., 'Since the last visit, palpation...'
+          soap.assessment, // String, e.g., 'h'
+          soap.plan, // String, e.g., 'The following segments were adjusted...'
+          soap.created_by ? parseInt(soap.created_by) : null, // Nullable integer
+          soap.updated_by ? parseInt(soap.updated_by) : null, // Nullable integer
+          soap.status, // String, e.g., 'Complete'
+        ]
+      );
+    }
+
+    //Insert data into cpt_codes table
+    for (const code of cptCodes) {
+      await db.query(
+        `INSERT INTO public.cpt_codes (id, code, description, price) VALUES ($1, $2, $3, $4)`,
+        [
+          parseInt(code.id), // Ensure it's an integer
+          code.code, // Code as a string
+          code.description, // Description as a string
+          parseFloat(code.price), // Ensure it's a float for numeric columns
+        ]
+      );
+    }
+
+    //Insert data into inventory table
+    for (const item of inventoryItems) {
+      await db.query(
+        `INSERT INTO public.inventory (id, branch_id, item_name, quantity, unit_price, last_updated, updated_by) VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+        [
+          parseInt(item.id), // Ensure id is an integer
+          parseInt(item.branch_id), // Ensure branch_id is an integer
+          item.item_name, // Item name as a string
+          parseInt(item.quantity), // Ensure quantity is an integer
+          parseFloat(item.unit_price), // Ensure unit_price is a float
+          new Date(item.last_updated), // Convert last_updated to a date object
+          parseInt(item.updated_by), // Ensure updated_by is an integer
+        ]
+      );
+    }
+
+    console.log("Data inserted successfully from CSV files.");
+  } catch (error) {
+    console.error("Error inserting data from CSV files:", error);
+    process.exit(1);
+  }
+};
 
 const setupDatabase = async () => {
   try {
@@ -213,9 +337,8 @@ const setupDatabase = async () => {
     await db.query(createTables);
     console.log("Tables created successfully.");
 
-    // Insert dummy data
-    await db.query(insertDummyData);
-    console.log("Dummy data inserted successfully.");
+    // Insert data from CSV files
+    await insertDataFromCSV();
 
     await db.end();
     console.log("Database setup complete.");
