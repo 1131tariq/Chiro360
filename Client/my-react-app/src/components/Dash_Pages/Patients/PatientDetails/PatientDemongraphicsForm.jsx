@@ -11,7 +11,7 @@ import {
   DialogActions,
 } from "@mui/material";
 
-function PatientDemographicsForm({ executeQuery, patient }) {
+function PatientDemographicsForm({ userinfo, executeQuery, patient }) {
   const [patientData, setPatientData] = useState({});
   const [confirmationOpen, setConfirmationOpen] = useState(false);
 
@@ -183,24 +183,25 @@ function PatientDemographicsForm({ executeQuery, patient }) {
               fullWidth
               margin="normal"
             />
-
-            <Box sx={{ mt: 2 }}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleUpdatePatient}
-              >
-                Update Patient
-              </Button>
-              <Button
-                variant="contained"
-                color="error"
-                onClick={() => setConfirmationOpen(true)}
-                sx={{ ml: 2 }}
-              >
-                Delete Patient
-              </Button>
-            </Box>
+            {userinfo.user_kind !== "Call Agent" && (
+              <Box sx={{ mt: 2 }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleUpdatePatient}
+                >
+                  Update Patient
+                </Button>
+                <Button
+                  variant="contained"
+                  color="error"
+                  onClick={() => setConfirmationOpen(true)}
+                  sx={{ ml: 2 }}
+                >
+                  Delete Patient
+                </Button>
+              </Box>
+            )}
           </Grid>
         </Grid>
       </Box>

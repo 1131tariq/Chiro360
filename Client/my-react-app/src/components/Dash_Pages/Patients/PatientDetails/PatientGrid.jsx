@@ -101,6 +101,7 @@ export default function PatientGrid({
         <PatientDemongraphicsForm
           executeQuery={executeQuery}
           patient={patient}
+          userinfo={userinfo}
         />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>

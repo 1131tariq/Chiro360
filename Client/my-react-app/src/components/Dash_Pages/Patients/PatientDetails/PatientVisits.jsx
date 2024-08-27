@@ -283,9 +283,11 @@ const PatientVisits = ({
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSave} color="primary">
-            Save
-          </Button>
+          {userinfo.user_kind !== "Call Agent" && (
+            <Button onClick={handleSave} color="primary">
+              Save
+            </Button>
+          )}
           <Button onClick={handleCloseModal} color="primary">
             Close
           </Button>
