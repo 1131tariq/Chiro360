@@ -71,7 +71,9 @@ function FlowGrid({
     .local()
     .format("YYYY-MM-DD");
 
-  const isAdmin = userinfo.user_kind === "Administrative only";
+  const isAdmin =
+    userinfo.user_kind === "Administrative only" ||
+    userinfo.user_kind === "Call Agent";
 
   // Filter appointments based on user type
   const filteredAppointments = isAdmin
