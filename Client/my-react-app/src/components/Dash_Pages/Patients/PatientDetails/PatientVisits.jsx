@@ -43,12 +43,19 @@ const PatientVisits = ({
   patient,
   attendedAppointments = [],
   userinfo,
+  users,
   executeQuery,
 }) => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [expandedSoapId, setExpandedSoapId] = useState(null);
   const [editedAppointment, setEditedAppointment] = useState(null);
+
+  // Function to find the provider's name by ID
+  const getProviderName = (providerId) => {
+    const provider = users.find((user) => user.id === providerId);
+    return provider ? provider.firstname : "Unknown";
+  };
 
   useEffect(() => {
     if (selectedAppointment) {
@@ -113,7 +120,9 @@ const PatientVisits = ({
       <Table>
         <TableHead>
           <TableRow>
+            <TableCell>ID</TableCell>
             <TableCell>Date</TableCell>
+            <TableCell>Provider</TableCell>
             <TableCell>Case Type</TableCell>
             <TableCell>Invoice Status</TableCell>
             <TableCell>Status</TableCell>
@@ -123,9 +132,12 @@ const PatientVisits = ({
         <TableBody>
           {attendedAppointments.map((appointment, index) => (
             <TableRow key={index}>
+              <TableCell>{appointment.appointment_id}</TableCell>
+
               <TableCell>
                 {new Date(appointment.appointment_date).toLocaleDateString()}
               </TableCell>
+              <TableCell>{getProviderName(appointment.provider_id)}</TableCell>
               <TableCell>{appointment.case_type}</TableCell>
               <TableCell>{appointment.invoice_status}</TableCell>
               <TableCell>{appointment.status || "No status"}</TableCell>

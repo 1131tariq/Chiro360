@@ -103,6 +103,7 @@ export default function PatientFutureVisits({
       <Table>
         <TableHead>
           <TableRow>
+            <TableCell>ID</TableCell>
             <TableCell>Date</TableCell>
             <TableCell>Provider</TableCell>
             <TableCell>Appointment Type</TableCell>
@@ -114,6 +115,7 @@ export default function PatientFutureVisits({
         <TableBody>
           {futureAppointments.map((appointment, index) => (
             <TableRow key={index}>
+              <TableCell>{appointment.appointment_id}</TableCell>
               <TableCell>
                 {new Date(appointment.appointment_date).toLocaleDateString(
                   "en-CA"

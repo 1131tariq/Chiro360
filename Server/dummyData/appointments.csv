@@ -1,16 +1,16 @@
 appointment_id,patient_id,provider_id,appointment_date,appointment_time,appointment_type,status,created_at,branch_id,appointment_end_time,amount,invoice_status,case_type
-7,2,1,2024-08-05,10:00:00,Adjustment,Completed,2024-08-01 00:00:00,1,11:00:00,135.00,Paid,Cash
 6,2,1,2024-05-20,10:00:00,Walk-in,Completed,2024-05-01 00:00:00,1,11:00:00,116.00,Paid,Insurance
 5,2,1,2024-02-20,10:00:00,Follow-up,Cancelled,2024-02-01 00:00:00,1,11:00:00,194.00,Not Issued,Insurance
-77,4,5,2024-08-15,06:30:00,New Patient,Completed,2024-08-16 10:56:44.2425,1,08:00:00,85.00,Paid,Insurance
-74,3,1,2024-08-12,01:00:00,Xray Follow up,Completed,2024-08-12 15:30:06.853398,1,10:00:00,60.00,Paid,Cash
+7,2,1,2024-08-05,10:00:00,Adjustment,Completed,2024-08-01 00:00:00,1,11:00:00,115.00,Paid,Cash
+74,3,5,2024-08-12,01:00:00,Xray Follow up,Completed,2024-08-12 15:30:06.853398,1,10:00:00,60.00,Paid,Cash
 12,3,5,2024-10-31,11:00:00,Walk-in,Scheduled,2024-12-01 00:00:00,1,12:00:00,127.00,Not Issued,Insurance
-78,4,5,2024-08-15,01:30:00,Report of Findings,Completed,2024-08-16 10:56:55.035697,1,10:30:00,100.00,Paid,Cash
+78,4,10,2024-08-15,01:30:00,Report of Findings,Completed,2024-08-16 10:56:55.035697,1,10:30:00,100.00,Paid,Cash
 3,1,1,2024-07-15,09:00:00,Walk-in,Completed,2024-07-01 00:00:00,1,10:00:00,135.00,Paid,Insurance
 11,3,5,2024-09-05,11:00:00,Follow-up,Scheduled,2024-09-01 00:00:00,1,12:00:00,139.00,Not Issued,Insurance
 9,3,5,2024-03-05,11:00:00,Walk-in,Cancelled,2024-03-01 00:00:00,1,12:00:00,139.00,Not Issued,Cash
 73,1,1,2024-08-12,03:00:00,Report of Findings,Cancelled,2024-08-12 15:29:32.919993,1,07:00:00,100.00,Not Issued,Insurance
 115,2,1,2024-08-23,08:30:00,Adjustment,Completed,2024-08-23 15:15:12.964682,1,11:30:00,100.00,Due,Cash
+77,4,10,2024-08-15,06:30:00,New Patient,Completed,2024-08-16 10:56:44.2425,1,08:00:00,85.00,Due,Insurance
 1,1,1,2024-01-15,09:00:00,Adjustment,Completed,2024-01-01 00:00:00,1,10:00:00,100.00,Paid,Insurance
 2,1,1,2024-04-15,09:00:00,Follow-up,Completed,2024-04-01 00:00:00,1,10:00:00,141.00,Paid,Cash
 10,3,5,2024-06-05,11:00:00,Adjustment,Completed,2024-06-01 00:00:00,1,12:00:00,188.00,Paid,Insurance
@@ -27,8 +27,6 @@ appointment_id,patient_id,provider_id,appointment_date,appointment_time,appointm
 20,5,11,2024-11-15,13:00:00,Follow-up,Scheduled,2024-11-01 00:00:00,2,14:00:00,122.00,Not Issued,Cash
 76,1,1,2024-08-15,03:30:00,Report of Findings,Completed,2024-08-16 10:39:22.573169,1,06:00:00,0.00,Paid,Insurance
 31,8,5,2024-08-18,16:00:00,Adjustment,Completed,2024-08-01 00:00:00,1,17:00:00,117.00,Paid,Cash
-19,5,11,2024-08-05,13:00:00,Adjustment,Completed,2024-08-01 00:00:00,2,14:00:00,166.00,Paid,Insurance
-15,4,10,2024-07-25,12:00:00,Walk-in,Completed,2024-07-01 00:00:00,2,13:00:00,149.00,Paid,Cash
 26,7,4,2024-04-30,15:00:00,Follow-up,Cancelled,2024-04-01 00:00:00,1,16:00:00,182.00,Not Issued,Insurance
 24,6,1,2024-12-10,14:00:00,Walk-in,Scheduled,2024-12-01 00:00:00,1,15:00:00,118.00,Not Issued,Insurance
 23,6,1,2024-09-10,14:00:00,Follow-up,Scheduled,2024-09-01 00:00:00,1,15:00:00,157.00,Not Issued,Cash
@@ -36,13 +34,15 @@ appointment_id,patient_id,provider_id,appointment_date,appointment_time,appointm
 22,6,1,2024-06-10,14:00:00,Adjustment,Completed,2024-06-01 00:00:00,1,15:00:00,191.00,Paid,Cash
 25,7,4,2024-01-30,15:00:00,Adjustment,Completed,2024-01-01 00:00:00,1,16:00:00,240.00,Paid,Cash
 27,7,4,2024-07-30,15:00:00,Walk-in,Completed,2024-07-01 00:00:00,1,16:00:00,75.00,Paid,Cash
+15,4,10,2024-07-25,12:00:00,Walk-in,Completed,2024-07-01 00:00:00,2,13:00:00,120.00,Due,Cash
 75,2,1,2024-08-14,17:00:00,Report of Findings,Completed,2024-08-14 16:22:21.793152,1,18:30:00,445.00,Paid,Cash
+13,4,10,2024-01-25,12:00:00,Adjustment,Completed,2024-01-01 00:00:00,2,13:00:00,85.00,Due,Cash
 105,1,1,2024-08-21,12:36:00,Adjustment,Completed,2024-08-20 12:36:13.396228,1,13:36:00,215.00,Paid,Cash
 106,1,1,2024-08-22,12:36:00,Adjustment,Completed,2024-08-20 12:36:46.114616,1,13:36:00,145.00,Paid,Cash
-13,4,10,2024-01-25,12:00:00,Adjustment,Completed,2024-01-01 00:00:00,2,13:00:00,115.00,Paid,Cash
-14,4,10,2024-04-25,12:00:00,Follow-up,Completed,2024-04-01 00:00:00,2,13:00:00,196.00,Paid,Insurance
-17,5,11,2024-02-15,13:00:00,Follow-up,Completed,2024-02-01 00:00:00,2,14:00:00,180.00,Paid,Insurance
-18,5,11,2024-05-15,13:00:00,Walk-in,Completed,2024-05-01 00:00:00,2,14:00:00,132.00,Paid,Cash
+14,4,10,2024-04-25,12:00:00,Follow-up,Completed,2024-04-01 00:00:00,2,13:00:00,205.00,Due,Insurance
+19,5,11,2024-08-05,13:00:00,Adjustment,Completed,2024-08-01 00:00:00,2,14:00:00,0.00,Due,Insurance
+17,5,11,2024-02-15,13:00:00,Follow-up,Completed,2024-02-01 00:00:00,2,14:00:00,0.00,Due,Insurance
+18,5,11,2024-05-15,13:00:00,Walk-in,Completed,2024-05-01 00:00:00,2,14:00:00,135.00,Due,Cash
 29,8,5,2024-02-18,16:00:00,Follow-up,Completed,2024-02-01 00:00:00,1,17:00:00,130.00,Paid,Insurance
 30,8,5,2024-05-18,16:00:00,Walk-in,Completed,2024-05-01 00:00:00,1,17:00:00,199.00,Paid,Insurance
 43,11,1,2024-08-05,10:30:00,Adjustment,Completed,2024-08-01 00:00:00,1,11:30:00,197.00,Paid,Cash
@@ -51,22 +51,22 @@ appointment_id,patient_id,provider_id,appointment_date,appointment_time,appointm
 45,12,4,2024-03-15,11:30:00,Walk-in,Cancelled,2024-03-01 00:00:00,1,12:30:00,112.00,Not Issued,Cash
 40,10,11,2024-10-12,09:30:00,Adjustment,Scheduled,2024-10-01 00:00:00,2,10:30:00,105.00,Not Issued,Cash
 32,8,5,2024-11-18,16:00:00,Follow-up,Scheduled,2024-11-01 00:00:00,1,17:00:00,126.00,Not Issued,Insurance
-36,9,10,2024-12-22,17:00:00,Walk-in,Scheduled,2024-12-01 00:00:00,1,18:00:00,117.00,Not Issued,Cash
-35,9,10,2024-09-22,17:00:00,Follow-up,Scheduled,2024-09-01 00:00:00,1,18:00:00,101.00,Not Issued,Insurance
-39,10,11,2024-07-12,09:30:00,Walk-in,Completed,2024-07-01 00:00:00,2,10:30:00,104.00,Paid,Cash
 38,10,11,2024-04-12,09:30:00,Follow-up,Cancelled,2024-04-01 00:00:00,2,10:30:00,105.00,Not Issued,Insurance
-34,9,10,2024-06-22,17:00:00,Adjustment,Cancelled,2024-06-01 00:00:00,1,18:00:00,145.00,Not Issued,Cash
-37,10,11,2024-01-12,09:30:00,Adjustment,Completed,2024-01-01 00:00:00,2,10:30:00,112.00,Paid,Insurance
 44,11,1,2024-08-23,10:30:00,Follow-up,Completed,2024-11-01 00:00:00,1,11:30:00,445.00,Paid,Cash
 41,11,1,2024-02-05,10:30:00,Follow-up,Completed,2024-02-01 00:00:00,1,11:30:00,184.00,Paid,Insurance
 42,11,1,2024-05-05,10:30:00,Walk-in,Completed,2024-05-01 00:00:00,1,11:30:00,184.00,Paid,Cash
 46,12,4,2024-06-15,11:30:00,Adjustment,Completed,2024-06-01 00:00:00,1,12:30:00,405.00,Paid,Insurance
-33,9,10,2024-03-22,17:00:00,Walk-in,Completed,2024-03-01 00:00:00,1,18:00:00,177.00,Paid,Insurance
+36,9,10,2024-12-22,17:00:00,Walk-in,Scheduled,2024-12-01 00:00:00,2,18:00:00,117.00,Not Issued,Cash
+35,9,10,2024-09-22,17:00:00,Follow-up,Scheduled,2024-09-01 00:00:00,2,18:00:00,101.00,Not Issued,Insurance
+34,9,10,2024-06-22,17:00:00,Adjustment,Cancelled,2024-06-01 00:00:00,2,18:00:00,145.00,Not Issued,Cash
+33,9,10,2024-03-22,17:00:00,Walk-in,Completed,2024-03-01 00:00:00,2,18:00:00,110.00,Due,Insurance
+39,10,11,2024-07-12,09:30:00,Walk-in,Completed,2024-07-01 00:00:00,2,10:30:00,60.00,Due,Cash
+37,10,11,2024-01-12,09:30:00,Adjustment,Completed,2024-01-01 00:00:00,2,10:30:00,60.00,Due,Insurance
 49,13,5,2024-02-18,16:00:00,Follow-up,Completed,2024-02-01 00:00:00,1,17:00:00,128.00,Paid,Cash
 50,13,5,2024-05-18,16:00:00,Walk-in,Completed,2024-05-01 00:00:00,1,17:00:00,138.00,Paid,Cash
-53,14,10,2024-03-22,17:00:00,Walk-in,Completed,2024-03-01 00:00:00,1,18:00:00,185.00,Paid,Insurance
-55,14,10,2024-09-22,17:00:00,Follow-up,Scheduled,2024-09-01 00:00:00,1,18:00:00,157.00,Not Issued,Cash
 52,13,5,2024-11-18,16:00:00,Follow-up,Scheduled,2024-11-01 00:00:00,1,17:00:00,154.00,Not Issued,Cash
-56,14,10,2024-12-22,17:00:00,Walk-in,Scheduled,2024-12-01 00:00:00,1,18:00:00,176.00,Not Issued,Insurance
 51,13,5,2024-08-18,16:00:00,Adjustment,Completed,2024-08-01 00:00:00,1,17:00:00,194.00,Paid,Cash
-54,14,10,2024-06-22,17:00:00,Adjustment,Cancelled,2024-06-01 00:00:00,1,18:00:00,143.00,Not Issued,Cash
+55,14,10,2024-09-22,17:00:00,Follow-up,Scheduled,2024-09-01 00:00:00,2,18:00:00,157.00,Not Issued,Cash
+56,14,10,2024-12-22,17:00:00,Walk-in,Scheduled,2024-12-01 00:00:00,2,18:00:00,176.00,Not Issued,Insurance
+54,14,10,2024-06-22,17:00:00,Adjustment,Cancelled,2024-06-01 00:00:00,2,18:00:00,143.00,Not Issued,Cash
+53,14,10,2024-03-22,17:00:00,Walk-in,Completed,2024-03-01 00:00:00,2,18:00:00,75.00,Due,Insurance

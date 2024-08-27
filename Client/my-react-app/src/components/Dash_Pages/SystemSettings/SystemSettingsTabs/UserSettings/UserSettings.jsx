@@ -68,6 +68,7 @@ function UserSettings({ executeQuery, users, branches }) {
         <Table>
           <TableHead>
             <TableRow>
+              <TableCell>ID</TableCell>
               <TableCell>Username</TableCell>
               <TableCell>First Name</TableCell>
               <TableCell>Last Name</TableCell>
@@ -82,6 +83,7 @@ function UserSettings({ executeQuery, users, branches }) {
             {filteredUsers.length > 0 ? (
               filteredUsers.map((user) => (
                 <TableRow key={user.id}>
+                  <TableCell>{user.id}</TableCell>
                   <TableCell>{user.username}</TableCell>
                   <TableCell>{user.firstname}</TableCell>
                   <TableCell>{user.lastname}</TableCell>

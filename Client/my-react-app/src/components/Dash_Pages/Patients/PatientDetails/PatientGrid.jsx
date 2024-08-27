@@ -127,6 +127,7 @@ export default function PatientGrid({
           patient={patient}
           executeQuery={executeQuery}
           soaps={soaps}
+          users={users}
           userinfo={userinfo}
           attendedAppointments={attendedAppointments}
         />

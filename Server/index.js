@@ -267,7 +267,7 @@ app.post("/register", async (req, res) => {
           const user = result.rows[0];
 
           // Notify all WebSocket clients with updated user list
-          await sendDataUpdate("users", "SELECT * FROM users"); // Send user list update
+          await sendDataUpdate(req.user, "users", "SELECT * FROM users", []); // Send user list update
 
           // Respond with status 201 Created
           res.status(201).json(user); // Respond with user data
