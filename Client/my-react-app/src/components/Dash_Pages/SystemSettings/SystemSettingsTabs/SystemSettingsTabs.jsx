@@ -37,6 +37,7 @@ function a11yProps(index) {
 }
 
 export default function SystemSettingsTabs({
+  userinfo,
   cptCodes,
   executeQuery,
   branches,
@@ -69,10 +70,18 @@ export default function SystemSettingsTabs({
         />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={1}>
-        <BranchSettings executeQuery={executeQuery} branches={branches} />
+        <BranchSettings
+          userinfo={userinfo}
+          executeQuery={executeQuery}
+          branches={branches}
+        />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={2}>
-        <CPTCodeSettings executeQuery={executeQuery} cptCodes={cptCodes} />
+        <CPTCodeSettings
+          userinfo={userinfo}
+          executeQuery={executeQuery}
+          cptCodes={cptCodes}
+        />
       </CustomTabPanel>
     </Box>
   );

@@ -224,6 +224,7 @@ const Dashboard = ({ userInfo, checkAuthStatus, setIsAuthenticated }) => {
             cptCodes={cptCodes}
             branches={branches}
             users={users}
+            userinfo={userInfo}
           />
         );
       default:

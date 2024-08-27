@@ -11,7 +11,7 @@ import TextField from "@mui/material/TextField";
 import CPTCodeRegistrationModal from "./CPTCodeRegistrationModal";
 import EditCPTCodeModal from "./EditCPTCodeModal";
 
-function CPTCodeSettings({ executeQuery, cptCodes }) {
+function CPTCodeSettings({ userinfo, executeQuery, cptCodes }) {
   const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedCPTCode, setSelectedCPTCode] = useState(null);
@@ -49,13 +49,15 @@ function CPTCodeSettings({ executeQuery, cptCodes }) {
   return (
     <div>
       <h1>CPT Codes</h1>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleOpenRegistrationModal}
-      >
-        Add New CPT Code
-      </Button>
+      {userinfo.permission_level == "System Admin" && (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleOpenRegistrationModal}
+        >
+          Add New CPT Code
+        </Button>
+      )}
       <TextField
         label="Search"
         variant="outlined"
@@ -71,7 +73,9 @@ function CPTCodeSettings({ executeQuery, cptCodes }) {
               <TableCell>CPT Code</TableCell>
               <TableCell>Description</TableCell>
               <TableCell>Price</TableCell>
-              <TableCell>Actions</TableCell>
+              {userinfo.permission_level == "System Admin" && (
+                <TableCell>Actions</TableCell>
+              )}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -85,13 +89,15 @@ function CPTCodeSettings({ executeQuery, cptCodes }) {
                     <TableCell>{code.description}</TableCell>
                     <TableCell>{`$${price.toFixed(2)}`}</TableCell>
                     <TableCell>
-                      <Button
-                        variant="outlined"
-                        color="primary"
-                        onClick={() => handleOpenEditModal(code)}
-                      >
-                        Edit
-                      </Button>
+                      {userinfo.permission_level == "System Admin" && (
+                        <Button
+                          variant="outlined"
+                          color="primary"
+                          onClick={() => handleOpenEditModal(code)}
+                        >
+                          Edit
+                        </Button>
+                      )}
                     </TableCell>
                   </TableRow>
                 );

@@ -11,7 +11,7 @@ import TextField from "@mui/material/TextField";
 import BranchRegistrationModal from "./BranchRegistrationModal";
 import EditBranchModal from "./EditBranchModal";
 
-function BranchSettings({ executeQuery, branches }) {
+function BranchSettings({ userinfo, executeQuery, branches }) {
   const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedBranch, setSelectedBranch] = useState(null);
@@ -49,13 +49,15 @@ function BranchSettings({ executeQuery, branches }) {
   return (
     <div>
       <h1>Branches</h1>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={handleOpenRegistrationModal}
-      >
-        Add New Branch
-      </Button>
+      {userinfo.permission_level == "System Admin" && (
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleOpenRegistrationModal}
+        >
+          Add New Branch
+        </Button>
+      )}
       <TextField
         label="Search"
         variant="outlined"
