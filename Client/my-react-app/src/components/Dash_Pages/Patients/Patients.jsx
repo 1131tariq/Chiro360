@@ -21,6 +21,7 @@ function Patients({
           <Grid xs={2}>
             <PatientSearch
               patients={patients}
+              userinfo={userinfo}
               executeQuery={executeQuery}
               setSelectedPatient={setSelectedPatient}
               selectedPatient={selectedPatient}

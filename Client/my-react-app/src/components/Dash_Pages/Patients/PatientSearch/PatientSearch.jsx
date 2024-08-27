@@ -8,7 +8,13 @@ import {
 } from "@mui/material";
 import NewPatientModal from "./NewPatientModal/NewPatientModal";
 
-function PatientSearch({ users, executeQuery, patients, setSelectedPatient }) {
+function PatientSearch({
+  userinfo,
+  users,
+  executeQuery,
+  patients,
+  setSelectedPatient,
+}) {
   const [searchTerm, setSearchTerm] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -42,21 +48,23 @@ function PatientSearch({ users, executeQuery, patients, setSelectedPatient }) {
           onChange={handleSearchChange}
           fullWidth
         />
-        <Button
-          variant="contained"
-          color="primary"
-          style={{
-            marginLeft: "16px",
-            borderRadius: "50%",
-            width: "40px",
-            height: "40px",
-            minWidth: "40px",
-            padding: "0",
-          }}
-          onClick={() => setIsModalOpen(true)}
-        >
-          +
-        </Button>
+        {userinfo.user_kind !== "Call Agent" && (
+          <Button
+            variant="contained"
+            color="primary"
+            style={{
+              marginLeft: "16px",
+              borderRadius: "50%",
+              width: "40px",
+              height: "40px",
+              minWidth: "40px",
+              padding: "0",
+            }}
+            onClick={() => setIsModalOpen(true)}
+          >
+            +
+          </Button>
+        )}
       </div>
       <div
         className="card-container"
