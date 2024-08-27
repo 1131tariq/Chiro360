@@ -42,6 +42,7 @@ const PatientVisits = ({
   soaps = [],
   patient,
   attendedAppointments = [],
+  userinfo,
   executeQuery,
 }) => {
   const [openModal, setOpenModal] = useState(false);
@@ -152,7 +153,6 @@ const PatientVisits = ({
         <DialogContent>
           {selectedAppointment && editedAppointment && (
             <Box>
-              <Typography variant="h6">Appointment Details</Typography>
               <TextField
                 label="Date"
                 type="date"
@@ -206,73 +206,79 @@ const PatientVisits = ({
                   ))}
                 </Select>
               </FormControl>
-
-              <Typography variant="h6" sx={{ mt: 2 }}>
-                Associated Soaps
-              </Typography>
-              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
-                {soaps.filter(
-                  (soap) =>
-                    soap.appointment_id === selectedAppointment.appointment_id
-                ).length > 0 ? (
-                  soaps
-                    .filter(
-                      (soap) =>
-                        soap.appointment_id ===
-                        selectedAppointment.appointment_id
-                    )
-                    .map((soap, index) => (
-                      <Card key={index} sx={{ width: 300, mb: 2 }}>
-                        <CardContent>
-                          <Typography variant="h6">
-                            SOAP ID: {soap.id}
-                          </Typography>
-                          <Typography>
-                            Status: {soap.status || "No status"}
-                          </Typography>
-                          <IconButton
-                            onClick={() => handleToggleExpand(soap.id)}
-                            aria-expanded={expandedSoapId === soap.id}
-                            aria-label="show more"
-                          >
-                            {expandedSoapId === soap.id ? (
-                              <ExpandLessIcon />
-                            ) : (
-                              <ExpandMoreIcon />
-                            )}
-                          </IconButton>
-                          <Collapse
-                            in={expandedSoapId === soap.id}
-                            timeout="auto"
-                            unmountOnExit
-                          >
-                            <Box sx={{ mt: 2 }}>
-                              <Typography>
-                                <strong>Subjective:</strong>{" "}
-                                {soap.subjective || "No data"}
-                              </Typography>
-                              <Typography>
-                                <strong>Objective:</strong>{" "}
-                                {soap.objective || "No data"}
-                              </Typography>
-                              <Typography>
-                                <strong>Assessment:</strong>{" "}
-                                {soap.assessment || "No data"}
-                              </Typography>
-                              <Typography>
-                                <strong>Plan:</strong> {soap.plan || "No data"}
-                              </Typography>
-                            </Box>
-                          </Collapse>
-                        </CardContent>
-                      </Card>
-                    ))
-                ) : (
-                  <Typography>
-                    No soaps associated with this appointment.
-                  </Typography>
+              {userinfo.user_kind !== "Call Agent" &&
+                userinfo.user_kind !== "Administrative only" && (
+                  <>
+                    <Typography variant="h6" sx={{ mt: 2 }}>
+                      Associated Soaps
+                    </Typography>
+                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2 }}>
+                      {soaps.filter(
+                        (soap) =>
+                          soap.appointment_id ===
+                          selectedAppointment.appointment_id
+                      ).length > 0 ? (
+                        soaps
+                          .filter(
+                            (soap) =>
+                              soap.appointment_id ===
+                              selectedAppointment.appointment_id
+                          )
+                          .map((soap, index) => (
+                            <Card key={index} sx={{ width: 300, mb: 2 }}>
+                              <CardContent>
+                                <Typography variant="h6">
+                                  SOAP ID: {soap.id}
+                                </Typography>
+                                <Typography>
+                                  Status: {soap.status || "No status"}
+                                </Typography>
+                                <IconButton
+                                  onClick={() => handleToggleExpand(soap.id)}
+                                  aria-expanded={expandedSoapId === soap.id}
+                                  aria-label="show more"
+                                >
+                                  {expandedSoapId === soap.id ? (
+                                    <ExpandLessIcon />
+                                  ) : (
+                                    <ExpandMoreIcon />
+                                  )}
+                                </IconButton>
+                                <Collapse
+                                  in={expandedSoapId === soap.id}
+                                  timeout="auto"
+                                  unmountOnExit
+                                >
+                                  <Box sx={{ mt: 2 }}>
+                                    <Typography>
+                                      <strong>Subjective:</strong>{" "}
+                                      {soap.subjective || "No data"}
+                                    </Typography>
+                                    <Typography>
+                                      <strong>Objective:</strong>{" "}
+                                      {soap.objective || "No data"}
+                                    </Typography>
+                                    <Typography>
+                                      <strong>Assessment:</strong>{" "}
+                                      {soap.assessment || "No data"}
+                                    </Typography>
+                                    <Typography>
+                                      <strong>Plan:</strong>{" "}
+                                      {soap.plan || "No data"}
+                                    </Typography>
+                                  </Box>
+                                </Collapse>
+                              </CardContent>
+                            </Card>
+                          ))
+                      ) : (
+                        <Typography>
+                          No soaps associated with this appointment.
+                        </Typography>
+                      )}
+                    </Box>
+                  </>
                 )}
-              </Box>
             </Box>
           )}
         </DialogContent>

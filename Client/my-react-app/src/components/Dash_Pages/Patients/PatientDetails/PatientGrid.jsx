@@ -126,6 +126,7 @@ export default function PatientGrid({
           patient={patient}
           executeQuery={executeQuery}
           soaps={soaps}
+          userinfo={userinfo}
           attendedAppointments={attendedAppointments}
         />
       </CustomTabPanel>

@@ -629,9 +629,12 @@ const MyCalendar = ({
                 />
               </FormControl>
             )}
-            <Button onClick={() => setNewPatient(true)} disabled={newPatient}>
-              New Patient
-            </Button>
+
+            {userInfo.user_kind !== "Call Agent" && (
+              <Button onClick={() => setNewPatient(true)} disabled={newPatient}>
+                New Patient
+              </Button>
+            )}
 
             {!newPatient && (
               <div>
