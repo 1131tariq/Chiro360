@@ -75,6 +75,7 @@ const MyCalendar = ({
     startTime: "",
     endTime: "",
     caseType: "",
+    provider: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -218,12 +219,7 @@ const MyCalendar = ({
   };
 
   const handleCreatePatient = async () => {
-    const errorMessage = validateFormData();
-    if (errorMessage) {
-      setError(errorMessage);
-      return;
-    }
-
+    // Validate and handle errors
     setLoading(true);
     setError(null);
     try {
@@ -233,9 +229,10 @@ const MyCalendar = ({
           lastname,
           gender,
           dateofbirth,
-          contactinfo
+          contactinfo,
+          assigned_doctor
         )
-        VALUES ($1, $2, $3, $4, $5)
+        VALUES ($1, $2, $3, $4, $5, $6)
       `;
       const values = [
         formData.firstName,
@@ -252,6 +249,7 @@ const MyCalendar = ({
             street: formData.street,
           },
         },
+        formData.provider, // Assigned doctor ID
       ];
       await executeQuery(query, values, "patients");
       setSuccess("Patient created successfully.");
@@ -605,6 +603,26 @@ const MyCalendar = ({
                   value={formData.email}
                   onChange={handleFormChange}
                 />
+                <FormControl fullWidth margin="normal">
+                  <InputLabel>Provider</InputLabel>
+                  <Select
+                    name="provider"
+                    value={formData.provider}
+                    onChange={handleFormChange}
+                  >
+                    {users
+                      .filter(
+                        (user) =>
+                          user.user_kind !== "Administrative only" &&
+                          user.user_kind !== "Call Agent"
+                      )
+                      .map((user) => (
+                        <MenuItem key={user.id} value={user.id}>
+                          {user.firstname} {user.lastname}
+                        </MenuItem>
+                      ))}
+                  </Select>
+                </FormControl>
               </>
             ) : (
               <FormControl fullWidth margin="normal">

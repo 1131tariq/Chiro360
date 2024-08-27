@@ -24,6 +24,7 @@ function Patients({
               executeQuery={executeQuery}
               setSelectedPatient={setSelectedPatient}
               selectedPatient={selectedPatient}
+              users={users}
             />
           </Grid>
           <Grid xs={10}>

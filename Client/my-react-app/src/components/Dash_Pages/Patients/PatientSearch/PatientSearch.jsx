@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import NewPatientModal from "./NewPatientModal/NewPatientModal";
 
-function PatientSearch({ executeQuery, patients, setSelectedPatient }) {
+function PatientSearch({ users, executeQuery, patients, setSelectedPatient }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -95,6 +95,7 @@ function PatientSearch({ executeQuery, patients, setSelectedPatient }) {
         onClose={() => setIsModalOpen(false)}
         onSave={handleNewPatientSave}
         executeQuery={executeQuery}
+        users={users}
       />
     </div>
   );

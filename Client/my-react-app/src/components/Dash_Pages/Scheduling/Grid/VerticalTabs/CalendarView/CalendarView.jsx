@@ -66,11 +66,14 @@ function CalendarView({
   const filteredUsers = users.filter(
     (user) =>
       user.branch_id === userinfo.branch_id &&
-      user.user_kind !== "Administrative only"
+      user.user_kind !== "Administrative only" &&
+      user.user_kind !== "Call Agent"
   );
 
   // Determine if current user is "Administrative only"
-  const isAdministrativeOnly = userinfo.user_kind === "Administrative only";
+  const isAdministrativeOnly =
+    userinfo.user_kind === "Administrative only" ||
+    userinfo.user_kind === "Call Agent";
 
   return (
     <div>

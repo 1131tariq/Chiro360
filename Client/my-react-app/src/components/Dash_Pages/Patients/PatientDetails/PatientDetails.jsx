@@ -27,6 +27,10 @@ function PatientDetails({
     (appointment) => appointment.patient_id == patient.patientid
   );
 
+  const assignedDoctor = users.find(
+    (user) => user.id === patient.assigned_doctor
+  );
+
   return (
     <div>
       <Box sx={{ flexGrow: 1 }}>
@@ -48,6 +52,12 @@ function PatientDetails({
             </Typography>
             <Typography variant="body1">
               <strong>Email:</strong> {patient.contactinfo?.email || "N/A"}
+            </Typography>
+            <Typography variant="body1">
+              <strong>Assigned Doctor:</strong>{" "}
+              {assignedDoctor
+                ? `${assignedDoctor.title} ${assignedDoctor.firstname} ${assignedDoctor.lastname}`
+                : "N/A"}
             </Typography>
           </Grid>
           <Grid item xs={3}></Grid>

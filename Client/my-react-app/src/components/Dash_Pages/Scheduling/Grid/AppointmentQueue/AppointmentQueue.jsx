@@ -30,7 +30,8 @@ function AppointmentQueue({
   const filteredUsers = users.filter(
     (user) =>
       user.branch_id === userinfo.branch_id &&
-      user.user_kind !== "Administrative only"
+      user.user_kind !== "Administrative only" &&
+      user.user_kind !== "Call Agent"
   );
 
   const formatDate = (dateString) => {
@@ -41,7 +42,9 @@ function AppointmentQueue({
     return moment(date1).isSame(date2, "day");
   };
 
-  const isAdministrativeOnly = userinfo.user_kind === "Administrative only";
+  const isAdministrativeOnly =
+    userinfo.user_kind === "Administrative only" ||
+    userinfo.user_kind === "Call Agent";
 
   const getUserAppointments = (userId) => {
     return appointments.filter(

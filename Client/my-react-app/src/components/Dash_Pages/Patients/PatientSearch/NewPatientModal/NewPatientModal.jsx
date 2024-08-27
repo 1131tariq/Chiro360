@@ -14,7 +14,7 @@ import {
   Alert,
 } from "@mui/material";
 
-const NewPatientModal = ({ open, onClose, onSave, executeQuery }) => {
+const NewPatientModal = ({ users, open, onClose, onSave, executeQuery }) => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -26,6 +26,7 @@ const NewPatientModal = ({ open, onClose, onSave, executeQuery }) => {
     city: "",
     state: "",
     zip: "",
+    provider: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -61,9 +62,10 @@ const NewPatientModal = ({ open, onClose, onSave, executeQuery }) => {
           lastname,
           gender,
           dateofbirth,
-          contactinfo
+          contactinfo,
+          assigned_doctor
         )
-        VALUES ($1, $2, $3, $4, $5)
+        VALUES ($1, $2, $3, $4, $5, $6)
       `;
       const values = [
         formData.firstName,
@@ -80,6 +82,7 @@ const NewPatientModal = ({ open, onClose, onSave, executeQuery }) => {
             street: formData.street,
           },
         },
+        formData.provider,
       ];
       await executeQuery(query, values, "patients");
       setSuccess("Patient created successfully.");
@@ -199,6 +202,26 @@ const NewPatientModal = ({ open, onClose, onSave, executeQuery }) => {
             value={formData.email}
             onChange={handleChange}
           />
+          <FormControl fullWidth margin="normal">
+            <InputLabel>Provider</InputLabel>
+            <Select
+              name="provider"
+              value={formData.provider}
+              onChange={handleChange}
+            >
+              {users
+                .filter(
+                  (user) =>
+                    user.user_kind !== "Administrative only" &&
+                    user.user_kind !== "Call Agent"
+                )
+                .map((user) => (
+                  <MenuItem key={user.id} value={user.id}>
+                    {user.firstname} {user.lastname}
+                  </MenuItem>
+                ))}
+            </Select>
+          </FormControl>
         </form>
       </DialogContent>
       <DialogActions>

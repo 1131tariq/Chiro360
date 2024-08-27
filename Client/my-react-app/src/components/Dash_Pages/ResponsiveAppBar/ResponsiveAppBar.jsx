@@ -46,7 +46,7 @@ const allPages = {
     "Analytics",
     "Inventory",
   ],
-  "Call Agent": ["Schedule", "Leads", "Analytics"],
+  "Call Agent": ["Schedule", "Patients", "Leads", "Analytics"],
 };
 
 const allSettings = {
