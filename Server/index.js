@@ -309,7 +309,7 @@ app.get("/logout", (req, res) => {
       console.log(err);
       res.sendStatus(500);
     } else {
-      res.redirect("http://localhost:5173/");
+      res.sendStatus(200);
     }
   });
 });

@@ -29,6 +29,7 @@ const Dashboard = ({ userInfo, checkAuthStatus, setIsAuthenticated }) => {
     return `${year}-${month}-${day}`;
   });
 
+  
   useEffect(() => {
     checkAuthStatus();
 
