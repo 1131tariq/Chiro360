@@ -44,7 +44,11 @@ const sendDataUpdate = async (user, eventType, query, params = []) => {
   // Determine branch filtering based on permission level
   if (user.permission_level !== "System Admin") {
     // The branch filter is applied only if the user is not a System Admin
-    if (eventType !== "soaps" && eventType !== "cpt_codes") {
+    if (
+      eventType !== "soaps" &&
+      eventType !== "cpt_codes" &&
+      eventType !== "patients"
+    ) {
       filterCondition += `WHERE branch_id = $${params.length + 1}`;
       additionalParams.push(user.branch_id);
     }
@@ -99,6 +103,8 @@ const sendDataUpdate = async (user, eventType, query, params = []) => {
   // Construct the filtered query
   const filteredQuery = `${query} ${filterCondition}`;
   const filteredParams = [...params, ...additionalParams];
+
+  console.log("Query: " + filteredQuery + " Params: " + filteredParams);
 
   try {
     // Execute the filtered query
