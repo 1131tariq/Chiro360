@@ -1,0 +1,12 @@
+id,code,description,price
+3,98942,"Chiropractic manipulation of the spine, 5 regions",100.00
+4,97010,Application of a modality to one or more areas; hot or cold packs,15.00
+5,97012,"Application of a modality to one or more areas; traction, mechanical",25.00
+6,97014,Application of a modality to one or more areas; electrical stimulation,20.00
+7,97110,"Therapeutic exercises to develop strength and endurance, range of motion, and flexibility",40.00
+8,97112,"Neuromuscular re-education of movement, balance, coordination, kinesthetic sense, posture, and proprioception",50.00
+9,99201,"New patient office or other outpatient visit, typically 15 minutes",90.00
+10,99213,"Established patient office or other outpatient visit, typically 15 minutes",75.00
+2,98941,"Chiropractic manipulation of the spine, 3-4 regions",85.00
+1,98940,"Chiropractic manipulation of the spine, 1-2 regions",60.00
+11,S8990,Chiropractic Care Coordination (Per Patient Visit),30.00

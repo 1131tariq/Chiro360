@@ -8,7 +8,8 @@
     "install-client": "cd ../Client/my-react-app && npm install",
     "setup-db": "node setupDB.js",
     "start": "concurrently \"cd ../Client/my-react-app && npm run dev\" \"nodemon index.js\"",
-    "start-project": "npm install && npm run install-client && npm start"
+    "start-project": "npm install && npm run install-client && npm start",
+    "start-project-with-dummy-database": "npm install && npm run install-client && npm run setup-db && npm start"
   },
   "keywords": [],
   "author": "Tareq Batayneh",

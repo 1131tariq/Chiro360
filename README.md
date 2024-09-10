@@ -67,7 +67,7 @@ cd ../Server
 
 # Run the below script
 
-sudo npm run start-project
+sudo npm run start-project-with-dummy-database
 
 ### 4 View the Web Application hosted locally
 

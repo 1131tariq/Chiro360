@@ -1,0 +1,3 @@
+branch_id,branch_name,address,phone,email,description
+1,Main Branch,"{""zip"": ""H0G 1W1"", ""city"": ""Hogsmeade"", ""state"": ""Scotland"", ""street"": ""123 Elm Street""}",555-0001,main.branch@hogwarts.edu,The main branch of our practice.
+2,Downtown Clinic,"{""zip"": ""EC2A 3BF"", ""city"": ""London"", ""state"": ""Greater London"", ""street"": ""456 Maple Avenue""}",555-0002,downtown.clinic@hogwarts.edu,Located in the heart of the city.
