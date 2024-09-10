@@ -67,25 +67,8 @@ cd ../Server
 
 # Run the below script
 
-npm start
+sudo npm start-project
 
 ### 4 View the Web Application hosted locally
 
 http://localhost:5173/
-
-### 5 Login as any of the following users to test functionality
-
-# User 1 Credentials (Call Agent):
-
-email:
-password:
-
-# User 2 Credentials (Administrative only):
-
-email:
-password:
-
-# User 3 Credentials (Medical Staff):
-
-email:
-password:
