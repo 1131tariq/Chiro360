@@ -53,7 +53,7 @@ touch .env
 
 PG_USER=your_postgres_username
 PG_HOST=localhost
-PG_DATABASE=chiro360_db
+PG_DATABASE=your_database_name
 PG_PASSWORD=your_postgres_password
 PG_PORT=5432
 
@@ -67,7 +67,7 @@ cd ../Server
 
 # Run the below script
 
-sudo npm start-project
+sudo npm run start-project
 
 ### 4 View the Web Application hosted locally
 
