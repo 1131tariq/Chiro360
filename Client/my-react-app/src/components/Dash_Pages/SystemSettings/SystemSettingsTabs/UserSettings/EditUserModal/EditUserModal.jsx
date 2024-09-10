@@ -32,7 +32,7 @@ const EditUserForm = ({ user, branches, onClose, executeQuery }) => {
     if (user) {
       setFormData({
         user_kind: user.user_kind || "",
-        permission_level: user.permission_level[0] || "",
+        permission_level: user.permission_level || "",
         branch: user.branch_id || "",
         username: user.username || "",
         firstname: user.firstname || "",
@@ -81,7 +81,7 @@ const EditUserForm = ({ user, branches, onClose, executeQuery }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log("DDDDD " + formData.permission_level);
     // Format the arrays correctly for SQL
     const formattedPermissions = `{${formData.permissions
       .map((permission) => `"${permission}"`)
