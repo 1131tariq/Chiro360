@@ -65,10 +65,31 @@ SESSION_SECRET=your_session_secret
 
 cd ../Server
 
-# Run the below script
+# Run the below script (for the first time only)
 
 sudo npm run start-project-with-dummy-database
+
+# Run the below script if the terminal was terminated to start the application again (without dummy database being recreated)
+
+sudo npm run start-project
 
 ### 4 View the Web Application hosted locally
 
 http://localhost:5173/
+
+### 5 Login as any of the following users to test functionality
+
+# User 1 Credentials (Call Agent):
+
+email: test2@hotmail.com
+password: 229988
+
+# User 2 Credentials (Administrative only):
+
+email: test14@hotmail.com
+password: 229988
+
+# User 3 Credentials (Medical Staff):
+
+email: test11111@hotmail.com
+password: 229988
