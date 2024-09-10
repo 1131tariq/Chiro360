@@ -330,6 +330,44 @@ const insertDataFromCSV = async () => {
   }
 };
 
+const resetSequences = async () => {
+  try {
+    const sequences = [
+      { table: "users", column: "id", sequence: "users_id_seq" },
+      {
+        table: "branches",
+        column: "branch_id",
+        sequence: "branches_branch_id_seq",
+      },
+      {
+        table: "appointments",
+        column: "appointment_id",
+        sequence: "appointments_appointment_id_seq",
+      },
+      {
+        table: "patients",
+        column: "patientid",
+        sequence: "patients_patientid_seq",
+      },
+      { table: "soaps", column: "id", sequence: "soaps_id_seq" },
+      { table: "inventory", column: "id", sequence: "inventory_id_seq" },
+      { table: "cpt_codes", column: "id", sequence: "cpt_codes_id_seq" },
+    ];
+
+    for (const { table, column, sequence } of sequences) {
+      const result = await db.query(`SELECT MAX(${column}) FROM ${table}`);
+      const maxId = result.rows[0].max;
+      if (maxId !== null) {
+        await db.query(`SELECT setval('${sequence}', $1, true)`, [maxId]);
+        console.log(`Sequence ${sequence} set to ${maxId}`);
+      }
+    }
+  } catch (error) {
+    console.error("Error resetting sequences:", error);
+  }
+};
+
+// Add this function call after inserting data from CSV files
 const setupDatabase = async () => {
   try {
     await db.connect();
@@ -341,6 +379,9 @@ const setupDatabase = async () => {
 
     // Insert data from CSV files
     await insertDataFromCSV();
+
+    // Reset sequences
+    await resetSequences();
 
     await db.end();
     console.log("Database setup complete.");
