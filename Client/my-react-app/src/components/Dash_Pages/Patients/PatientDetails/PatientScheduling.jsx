@@ -63,10 +63,14 @@ const PatientScheduling = ({
     const filteredProviders = users.filter(
       (user) =>
         user.user_kind !== "Administrative only" &&
+        user.user_kind !== "Call Agent" &&
         user.branch_id === userinfo.branch_id
     );
     setAvailableProviders(filteredProviders);
-    if (userinfo.user_kind !== "Administrative only") {
+    if (
+      userinfo.user_kind !== "Administrative only" ||
+      userinfo.user_kind !== "Call Agent"
+    ) {
       setFormData((prev) => ({
         ...prev,
         provider: userinfo.id,
@@ -295,7 +299,10 @@ const PatientScheduling = ({
             name="provider"
             value={formData.provider}
             onChange={handleFormChange}
-            disabled={userinfo.user_kind !== "Administrative only"}
+            disabled={
+              userinfo.user_kind !== "Administrative only" &&
+              userinfo.user_kind !== "Call Agent"
+            }
           >
             {availableProviders.map((provider) => (
               <MenuItem key={provider.id} value={provider.id}>
