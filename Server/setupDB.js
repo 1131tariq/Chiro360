@@ -206,7 +206,7 @@ const insertDataFromCSV = async () => {
     for (const user of users) {
       console.log(user);
       await db.query(
-        `INSERT INTO users (id, email, password, username, firstname, lastname, branch_id, user_kind, permission_level, title, permissions) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)`,
+        `INSERT INTO users (id, email, password, username, firstname, lastname, contactinfo, branch_id, user_kind, permission_level, title, permissions) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`,
         [
           parseInt(user.id), // Ensure id is an integer
           user.email, // Email as a string
@@ -214,6 +214,8 @@ const insertDataFromCSV = async () => {
           user.username, // Username as a string
           user.firstname, // Firstname as a string
           user.lastname, // Lastname as a string
+          JSON.parse(user.contactinfo.replace(/'/g, '"')), // Convert contactinfo JSON string to object
+
           parseInt(user.branch_id), // Ensure branch_id is an integer
           user.user_kind, // User kind as a string
           user.permission_level, // Permission level as a string
